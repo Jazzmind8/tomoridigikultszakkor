@@ -426,7 +426,7 @@ footer {
   </div>
   <div class="wrap">
     <span class="eyebrow">Tomori · Digitális kultúra szakkör</span>
-    <h1>Scratch szakkör</h1>
+    <h1>Scratch program használata</h1>
     <p>Programozz látványos történeteket, játékokat és animációkat blokkokból. Itt minden feladathoz magyarázat és egy kattintással megnyitható Scratch-link is van.</p>
   </div>
   <button class="cat" id="cat" type="button" aria-label="Scratch macska – kattints rá!">
@@ -445,7 +445,7 @@ footer {
   <!-- ---------- Bevezető ---------- -->
   <section id="mi-a-scratch" aria-labelledby="h-mi">
     <h2 id="h-mi">Mi az a Scratch?</h2>
-    <p class="lead">A Scratch egy ingyenes, képernyős programozókörnyezet, amelyet az MIT (Massachusetts Institute of Technology) fejlesztett ki. Nem kell gépelni: a programot színes, egymásra illeszthető <strong>blokkokból</strong> építed össze, mint a kirakós darabjait.</p>
+    <p class="lead">A Scratch egy ingyenes, blokkprogramozási környezet, amelyet az MIT (Massachusetts Institute of Technology) egyeteme fejlesztett ki főképpen gyerekek számára, hogy könnyebben megértsék és elsajátítsák az algoritmikus gondolkodást és a programozás alapjait. Nem kell gépelni: a programot színes, egymásra illeszthető <strong>blokkokból</strong> építed össze, mint a kirakós darabjait.</p>
 
     <div class="cards" id="bemutato"></div>
 
@@ -455,7 +455,7 @@ footer {
   <!-- ---------- Feladatok ---------- -->
   <section id="feladatok" aria-labelledby="h-fel">
     <h2 id="h-fel">Feladatok</h2>
-    <p class="lead">Nyisd meg a feladatot, olvasd el a magyarázatot, majd a gombbal nyisd meg a Scratch-szerkesztőt. Ha kész vagy, pipáld ki – a haladásod a böngészőben megmarad.</p>
+    <p class="lead">Nyisd meg a feladatot, olvasd el a magyarázatot, majd nyisd meg a Scratch-szerkesztőt.</p>
 
     <div class="progress" aria-live="polite">
       <div class="progress-top">
@@ -492,11 +492,11 @@ const TOPICS = [
   { id: "valtozo",     name: "Változók",    color: "#ff8c1a", desc: "Pontszám, életerő és más adatok tárolása." },
 ];
 
-// Feladatok. Új feladathoz másold le egy elemet és töltsd ki.
-// Ezek csak PÉLDÁK – cseréld a saját feladataidra.
+// Feladatok. Új feladathoz másold le a blokkrészt és töltsd ki.
+// Ezek csak PÉLDÁK 
 const TASKS = [
   {
-    id: "f1",
+    id: "feladat_1",
     title: "Mozgó macska",
     category: "mozgas",
     summary: "Az első program: a macska magától sétál, és a szélnél visszapattan.",
@@ -515,15 +515,19 @@ const TASKS = [
     tip: "A „10” számot átírhatod: kisebb szám lassabb, nagyobb szám gyorsabb sétát jelent.",
   },
   {
-    id: "f2",
-    title: "Beszélő figura",
+    id: "feladat_2",
+    title: "Saját név kiírás jelmezváltással",
     category: "megjelenes",
-    summary: "Szöveg megjelenítése és a figura reakciója.",
-    goal: "A figura köszön, amikor rákattintasz.",
+    summary: "Szereplő jelmezének a váltása, csúszás random helyre.",
+    goal: "Kiírja a program a nevedet.",
     steps: [
-      "Válassz egy figurát, és tedd az „Amikor a figurára kattintanak” blokkot a programod elejére.",
-      "A Megjelenés kategóriából húzd alá a „Mondd: Helló! 2 másodpercig” blokkot.",
-      "Próbáld ki: kattints a figurára a színpadon!",
+      "Ez a feladat bonyolultabb lesz. A szereplő a neved kezdőbetője lesz.Azon belül töltöd be egyenként a neved további betűit egymás alá.",
+      "A programot most nem a zöld zászló indítja el, hanem a space gomb lenyomása.",
+      "Ismétlésként egy számláló ciklust használunk, aminek a paramétere 10 lesz.",
+      "Ismétlésen belül kiválasztjuk a jelmez legyen blokkot, ennek a paramétere a neved 1. betűje lesz.",
+      "Ezután kiválasztod a mozgás blokkok közül azt a blokkot, amivel a betű random helyre csúszik el, ennek a paramétere 1 mp lesz.",
+      "Kicsit várunk, 0.1 mp-et a jelmezváltások és csúszások között. ",
+      "Ezt addig ismétled, míg a neved összes betűje meg nem jelenik.",
     ],
     link: "https://scratch.mit.edu/projects/editor/",
     tip: "A szöveget a saját szavaidra is átírhatod.",
