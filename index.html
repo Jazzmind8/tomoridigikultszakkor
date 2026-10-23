@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tomori digitális kultúra szakkör - Scratch</title>
+<meta name="description" content="Tomori digitális kultúra szakkör: a Scratch rövid bemutatása és a feladatok magyarázattal, linkekkel a scratch.mit.edu oldalra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------- Színek (a Scratch blokkkategóriáinak színei) ---------- */
+:root {
+  --bg: #fff9ef;
+  --surface: #ffffff;
+  --ink: #2d2a4a;
+  --muted: #6b6891;
+  --line: #ece6f7;
+  --mozgas: #4c97ff;
+  --megjelenes: #9966ff;
+  --hang: #cf63cf;
+  --esemeny: #ffbf00;
+  --vezerles: #ffab19;
+  --erzekeles: #5cb1d6;
+  --operator: #59c059;
+  --valtozo: #ff8c1a;
+  --radius: 18px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 10% 0%, #e6f1ff 0, transparent 40%),
+    radial-gradient(circle at 95% 10%, #f1e9ff 0, transparent 35%),
+    var(--bg);
+  color: var(--ink);
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 920px; margin: 0 auto; min-width: 0; }
+h1, h2, h3, h4 { font-family: "Baloo 2", "Nunito", system-ui, sans-serif; line-height: 1.2; text-wrap: balance; }
+a { color: var(--mozgas); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 56px max(20px, env(safe-area-inset-left, 0px)) 64px;
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  background: linear-gradient(135deg, #4c97ff 0%, #9966ff 55%, #cf63cf 100%);
+  color: #fff;
+  border-radius: 0 0 36px 36px;
+  margin-bottom: 36px;
+}
+.hero .wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.hero-text { min-width: 0; }
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+.hero h1 { margin: 0 0 10px; font-size: clamp(2.3rem, 6vw, 3.6rem); font-weight: 800; }
+.hero p { margin: 0; max-width: 34rem; font-size: 1.1rem; opacity: 0.95; }
+.hero-cat {
+  flex: 0 0 auto;
+  width: clamp(120px, 26vw, 200px);
+  height: auto;
+  filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.15));
+  animation: wiggle 3.5s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+@keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-3deg); } }
+
+/* Dekoratív Scratch-blokkok a hero hátterében */
+.blocks { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.blk {
+  position: absolute;
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--c);
+  color: var(--t, #fff);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  white-space: nowrap;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+  animation: bob 4s ease-in-out infinite;
+  opacity: 0.92;
+}
+/* Felső és alsó "fül", ami a blokkok egymásba illeszkedését mutatja */
+.blk::before, .blk::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  width: 16px;
+  height: 8px;
+  background: var(--c);
+  border-radius: 0 0 4px 4px;
+}
+.blk::before { top: -7px; }
+.blk::after { bottom: -7px; border-radius: 4px 4px 0 0; }
+/* Valódi Scratch-blokkformák (szöveg nélkül) */
+.blk:nth-child(1) { right: 4%;  top: 10%; animation-delay: 0s; }
+.blk:nth-child(2) { right: 10%; top: 40%; animation-delay: -1.2s; }
+.blk:nth-child(3) { right: 3%;  top: 60%; animation-delay: -2.1s; }
+.blk:nth-child(4) { right: 2%;  top: 84%; animation-delay: -0.6s; }
+.blk:nth-child(5) { right: 26%; top: 14%; animation-delay: -1.8s; }
+
+/* Eseménykalap: domború tető, nincs alsó/felső fül */
+.blk.hat { --c: #ffbf00; width: 150px; height: 60px; border-radius: 40px 40px 10px 10px / 26px 26px 10px 10px; }
+.blk.hat::before, .blk.hat::after { display: none; }
+
+/* Egyszerű blokk: fülekkel */
+.blk.stack { --c: #4c97ff; width: 150px; height: 44px; border-radius: 10px; }
+/* A Scratch-blokk tetején nincs kiálló fül, csak alul van kiugrás */
+.blk.stack::before { display: none; }
+
+/* Vezérlés C-blokk: fekete-szürke kiskeret helyett karos forma */
+.blk.cblock {
+  --c: #ffab19;
+  width: 160px;
+  height: 120px;
+  border-radius: 10px;
+  box-shadow: none;
+  background:
+    linear-gradient(var(--c) 40px, transparent 40px, transparent calc(100% - 36px), var(--c) calc(100% - 36px)) no-repeat,
+    linear-gradient(var(--c), var(--c)) left top / 28px 100% no-repeat;
+}
+
+/* Jelentés (kerek, beillesztős) blokk */
+.blk.reporter { --c: #59c059; width: 120px; height: 40px; border-radius: 999px; }
+.blk.reporter::before, .blk.reporter::after { display: none; }
+
+/* Logikai (hatszög) blokk */
+.blk.bool {
+  --c: #5cb1d6;
+  width: 130px;
+  height: 40px;
+  border-radius: 0;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%);
+  box-shadow: none;
+}
+.blk.bool::before, .blk.bool::after { display: none; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ---------- Gyorsmenü ---------- */
+.jump { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 40px; }
+.jump a {
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 var(--line);
+  transition: transform 0.12s;
+}
+.jump a:hover { transform: translateY(-2px); }
+.jump a:focus-visible, .task summary:focus-visible, .btn:focus-visible, .check input:focus-visible {
+  outline: 3px solid var(--esemeny);
+  outline-offset: 3px;
+}
+
+section { margin-bottom: 48px; scroll-margin-top: 16px; }
+section > h2 { margin: 0 0 6px; font-size: clamp(1.7rem, 4vw, 2.2rem); font-weight: 700; }
+.lead { margin: 0 0 22px; color: var(--muted); max-width: 62ch; }
+
+/* ---------- Bemutató kártyák ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.info {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px;
+  border: 2px solid var(--line);
+  box-shadow: 0 6px 0 var(--line);
+  min-width: 0;
+}
+.info .icon {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: var(--c);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+}
+.info h3 { margin: 0 0 6px; font-size: 1.35rem; font-weight: 700; }
+.info p { margin: 0; }
+
+.kategoriak { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.kat {
+  color: #fff;
+  background: var(--c);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Haladás ---------- */
+.progress {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.progress-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-weight: 800; }
+.bar {
+  height: 14px;
+  margin-top: 10px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #59c059, #ffbf00);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* ---------- Feladatok ---------- */
+.task {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-left: 10px solid var(--c);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  box-shadow: 0 5px 0 var(--line);
+  min-width: 0;
+}
+.task[open] { box-shadow: 0 5px 0 var(--c); }
+.task summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 18px 20px;
+}
+.task summary::-webkit-details-marker { display: none; }
+.num {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: var(--c);
+  color: #fff;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15);
+}
+.task-title { font-family: "Baloo 2", sans-serif; font-size: 1.3rem; font-weight: 700; overflow-wrap: anywhere; }
+.task-cat { display: block; font-family: "Nunito", sans-serif; font-size: 13px; font-weight: 800; color: var(--c); letter-spacing: 0.03em; }
+.chev {
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--line);
+  transition: transform 0.2s;
+  font-size: 14px;
+}
+.task[open] .chev { transform: rotate(180deg); }
+
+.task-body { padding: 0 20px 22px; }
+.task-body h4 { margin: 18px 0 6px; font-size: 1.15rem; font-weight: 700; color: var(--c); }
+.task-body p { margin: 0 0 8px; }
+.task-body ol, .task-body ul { margin: 0 0 8px; padding-left: 22px; }
+.task-body li { margin-bottom: 6px; }
+.tip {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff6d6;
+  color: #5a4500;
+  font-weight: 600;
+}
+.tip strong { color: #5a4500; }
+
+.task-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  background: var(--operator);
+  color: #fff;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #3f9a3f;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #3f9a3f; }
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--line);
+}
+.check input { width: 20px; height: 20px; accent-color: var(--operator); margin: 0; cursor: pointer; }
+.task.done .task-title { text-decoration: line-through; text-decoration-thickness: 3px; opacity: 0.6; }
+.task.done .num { background: var(--operator); }
+
+/* ---------- Lábléc ---------- */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  padding-top: 24px;
+  border-top: 2px dashed var(--line);
+}
+
+/* ---------- Mozgás csökkentése ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .blk, .hero-cat { animation: none; }
+  * { transition: none !important; }
+}
+
+@media (max-width: 560px) {
+  .task summary { grid-template-columns: auto 1fr; }
+  .chev { display: none; }
+  .hero { border-radius: 0 0 26px 26px; }
+  .blk { opacity: 0.4; }
+  .hero-cat { width: 110px; }
+}
+
+/* ---------- Sötét téma (rendszerbeállítás szerint) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1b2e;
+    --surface: #27243d;
+    --ink: #f1efff;
+    --muted: #b6b2d6;
+    --line: #3a3656;
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) .tip { background: #3d3418; color: #ffe9a6; }
+  :root:not([data-theme="light"]) .tip strong { color: #ffe9a6; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HOGYAN FRISSÍTSD A TARTALMAT?
+     Csak a lenti TOPICS és TASKS listát szerkeszd.
+     - Új feladat: másold le egy TASKS-elemet, és töltsd ki.
+     - A "link" mezőbe a feladat konkrét scratch.mit.edu címét írd.
+     - A "steps" lépései külön sorok a listában.
+     - A "category" az alábbi TOPICS közül való (id).
+     ============================================================ -->
+
+<header class="hero">
+  <div class="blocks" aria-hidden="true">
+    <span class="blk hat"></span>
+    <span class="blk stack"></span>
+    <span class="blk cblock"></span>
+    <span class="blk reporter"></span>
+    <span class="blk bool"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="eyebrow">Tomori · Digitális kultúra szakkör</span>
+      <h1>Scratch</h1>
+      <p>Programozz látványos történeteket, játékokat és animációkat blokkokból. Itt minden feladathoz magyarázatot találsz és egy kattintással megnyitható Scratch-linket.</p>
+    </div>
+
+    <!-- Scratch-stílusú macska (saját rajz, a Scratch-macska ihletésére) -->
+    <svg class="hero-cat" viewBox="0 0 200 170" role="img" aria-label="Scratch macska">
+      <!-- farok -->
+      <path d="M150 120 C185 118 190 80 170 70" fill="none" stroke="#ff8c1a" stroke-width="14" stroke-linecap="round"/>
+      <!-- hátsó lábak -->
+      <ellipse cx="62" cy="150" rx="22" ry="12" fill="#ff8c1a"/>
+      <ellipse cx="128" cy="150" rx="22" ry="12" fill="#ff8c1a"/>
+      <!-- test -->
+      <ellipse cx="100" cy="112" rx="58" ry="42" fill="#ffab19"/>
+      <!-- hasi folt -->
+      <ellipse cx="100" cy="128" rx="30" ry="16" fill="#fff3d6"/>
+      <!-- első lábak -->
+      <rect x="66" y="128" width="20" height="30" rx="10" fill="#ffab19"/>
+      <rect x="114" y="128" width="20" height="30" rx="10" fill="#ffab19"/>
+      <!-- fül -->
+      <polygon points="52,42 60,8 88,30" fill="#ffab19"/>
+      <polygon points="148,42 140,8 112,30" fill="#ffab19"/>
+      <polygon points="58,34 62,18 78,30" fill="#ffd6a1"/>
+      <polygon points="142,34 138,18 122,30" fill="#ffd6a1"/>
+      <!-- fej -->
+      <ellipse cx="100" cy="64" rx="52" ry="42" fill="#ffab19"/>
+      <!-- arc -->
+      <ellipse cx="80" cy="62" rx="8" ry="10" fill="#2d2a4a"/>
+      <ellipse cx="120" cy="62" rx="8" ry="10" fill="#2d2a4a"/>
+      <circle cx="83" cy="58" r="3" fill="#fff"/>
+      <circle cx="123" cy="58" r="3" fill="#fff"/>
+      <!-- orr és száj -->
+      <ellipse cx="100" cy="78" rx="6" ry="4.5" fill="#ff6680"/>
+      <path d="M100 82 Q94 92 86 88 M100 82 Q106 92 114 88" fill="none" stroke="#2d2a4a" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- bajusz -->
+      <g stroke="#2d2a4a" stroke-width="1.8" stroke-linecap="round">
+        <line x1="60" y1="76" x2="36" y2="72"/>
+        <line x1="60" y1="82" x2="36" y2="84"/>
+        <line x1="140" y1="76" x2="164" y2="72"/>
+        <line x1="140" y1="82" x2="164" y2="84"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <nav class="jump" aria-label="Oldal tartalma">
+    <a href="#mi-a-scratch">Mi az a Scratch?</a>
+    <a href="#feladatok">Feladatok</a>
+  </nav>
+
+  <!-- ---------- Bevezető ---------- -->
+  <section id="mi-a-scratch" aria-labelledby="h-mi">
+    <h2 id="h-mi">Mi az a Scratch?</h2>
+    <p class="lead">A Scratch egy ingyenes blokkprogramozási környezet, amelyet az MIT (Massachusetts Institute of Technology) egyetem fejlesztett ki. Nem kell gépelned: a programot színes, egymásra illeszthető <strong>blokkokból</strong> építed össze, mint a kirakós darabjait.</p>
+
+    <div class="cards" id="bemutato"></div>
+
+    <div class="kategoriak" id="kategoriak" aria-label="Blokkkategóriák"></div>
+  </section>
+
+  <!-- ---------- Feladatok ---------- -->
+  <section id="feladatok" aria-labelledby="h-fel">
+    <h2 id="h-fel">Feladatok</h2>
+    <p class="lead">Nyisd meg a feladatot, olvasd el a magyarázatot, majd a gombbal nyisd meg a Scratch-szerkesztőt.</p>
+
+    <div class="progress" aria-live="polite">
+      <div class="progress-top">
+        <span id="progress-text">0 / 0 kész</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="bar" role="progressbar" aria-label="Elkészült feladatok aránya" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar">
+        <span id="bar-fill"></span>
+      </div>
+    </div>
+
+    <div id="tasks"></div>
+  </section>
+
+  <footer>
+    <p>Tomori · Digitális kultúra szakkör · Scratch</p>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   TARTALOM – ezt szerkeszd
+   ============================================================ */
+
+// Blokkkategóriák (a Scratch hivatalos színei). Ezekre hivatkozik a TASKS.category.
+const TOPICS = [
+  { id: "mozgas",      name: "Mozgás",      color: "#4c97ff", desc: "A figura mozgatása, forgatása és a helyzetének változtatása." },
+  { id: "megjelenes",  name: "Megjelenés",  color: "#9966ff", desc: "Öltözék, méret, szöveg és a figura megjelenése." },
+  { id: "hang",        name: "Hang",        color: "#cf63cf", desc: "Hangok lejátszása és zene a programodban." },
+  { id: "esemeny",     name: "Események",   color: "#ffbf00", desc: "Ezekkel indul el a program: kattintás, billentyű, üzenet." },
+  { id: "vezerles",    name: "Vezérlés",    color: "#ffab19", desc: "Ismétlés, várakozás és feltételek – a program 'agya'." },
+  { id: "erzekeles",   name: "Érzékelés",   color: "#5cb1d6", desc: "Egérmozgás, billentyűzet, érintkezés: a program 'érzékszervei'." },
+  { id: "operator",    name: "Operátorok",  color: "#59c059", desc: "Számolás, összehasonlítás és véletlen számok." },
+  { id: "valtozo",     name: "Változók",    color: "#ff8c1a", desc: "Pontszám, életerő és más adatok tárolása." },
+];
+
+// Feladatok. Új feladathoz másold le egy elemet és töltsd ki.
+// Ezek csak PÉLDÁK – cseréld a saját feladataidra.
+const TASKS = [
+  {
+    id: "feladat_1",
+    title: "Sétáló cica",
+    category: "mozgas",
+    summary: "Az első lépés: a figura mozgatása billentyűzettel.",
+    goal: "Olyan programot készítesz, amelyben a macska a jobbra és balra sétál folyamatosan",
+    steps: [
+      "Nyisd meg a Scratch-szerkesztőt (alkotás lapfül), és válaszd ki a macskát (Cat).",
+      "Az Események kategóriából húzd ide: „Amikor a zöld zászlóra kattintanak”.",
+      "A Vezérlés kategóriából húzd alá a „Mindig” blokkot.",
+      "Az Érzékelés kategóriából tedd bele a „Billentyű ... lenyomva?” blokkot.",
+      "A Mozgás kategóriából a „x-koordináta változtatása” blokkot húzd az if-be, és írj bele 10-et.",
+    ],
+    link: "https://scratch.mit.edu/projects/editor/",
+    tip: "Ha a macska túl gyorsan megy, csökkentsd a számot 5-re!",
+  },
+  {
+    id: "feladat_2",
+    title: "Beszélő figura",
+    category: "megjelenes",
+    summary: "Szöveg megjelenítése és a figura reakciója.",
+    goal: "A figura köszön, amikor rákattintasz.",
+    steps: [
+      "Válassz egy figurát, és tedd az „Amikor a figurára kattintanak” blokkot a programod elejére.",
+      "A Megjelenés kategóriából húzd alá a „Mondd: Helló! 2 másodpercig” blokkot.",
+      "Próbáld ki: kattints a figurára a színpadon!",
+    ],
+    link: "https://scratch.mit.edu/projects/editor/",
+    tip: "A szöveget a saját szavaidra is átírhatod.",
+  },
+  {
+    id: "feladat_3",
+    title: "Almagyűjtő játék",
+    category: "valtozo",
+    summary: "Az első kis játék: pontok gyűjtése változóval.",
+    goal: "Az egér követi az almát, és minden elkapott alma egy pontot ad.",
+    steps: [
+      "Hozz létre egy új változót „Pont” néven (Változók → Változó létrehozása).",
+      "A játék elején állítsd a „Pont” értékét 0-ra.",
+      "Az almát a „Vezérlés” kategóriából végtelen ciklusba tedd, és az egér helyére mozgasd.",
+      "Ha az alma érinti a kosarat, növeld a „Pont” változót 1-gyel.",
+    ],
+    link: "https://scratch.mit.edu/projects/editor/",
+    tip: "A pontszám a színpadon is megjeleníthető, ha bepipálod a változó mellett lévő négyzetet.",
+  },
+];
+
+/* ============================================================
+   MEGJELENÍTÉS – innen lefelé nem kell változtatni
+   ============================================================ */
+
+const STORAGE_KEY = "scratch-szakkor-kesz";
+const topicById = Object.fromEntries(TOPICS.map((t) => [t.id, t]));
+
+function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") node.className = v;
+    else if (k === "style") node.style.cssText = v;
+    else node.setAttribute(k, v);
+  }
+  for (const c of children) {
+    if (c == null) continue;
+    node.append(typeof c === "string" ? document.createTextNode(c) : c);
+  }
+  return node;
+}
+
+// Bemutató kártyák (Mi a Scratch? – rövid összefoglaló)
+const INFO = [
+  { icon: "🧩", color: "#4c97ff", title: "Blokkok", text: "Minden utasítás egy színes blokk. Csak össze kell illesztened őket." },
+  { icon: "🎨", color: "#9966ff", title: "Figurák és háttér", text: "A színpadon figurák (sprite-ok) mozognak, a háttér pedig a „színpad”." },
+  { icon: "🎮", color: "#59c059", title: "Mire jó?", text: "Animációk, történetek, játékok, zenék és interaktív rajzok készíthetők vele." },
+  { icon: "🌍", color: "#ff8c1a", title: "Megosztás", text: "A kész programjaidat a scratch.mit.edu oldalon megoszthatod és mások is kipróbálhatják." },
+];
+
+const infoEl = document.getElementById("bemutato");
+for (const item of INFO) {
+  infoEl.append(
+    el("article", { class: "info" },
+      el("div", { class: "icon", style: `--c:${item.color}`, "aria-hidden": "true" }, item.icon),
+      el("h3", {}, item.title),
+      el("p", {}, item.text),
+    )
+  );
+}
+
+// Blokkkategóriák színes címkéi
+const katEl = document.getElementById("kategoriak");
+for (const t of TOPICS) {
+  katEl.append(el("span", { class: "kat", style: `--c:${t.color}` }, t.name));
+}
+
+// Feladatok kirajzolása
+const tasksEl = document.getElementById("tasks");
+let doneSet = new Set();
+try {
+  doneSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+} catch (_) { /* nincs tárhely – a haladás nem mentődik */ }
+
+function saveDone() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...doneSet])); } catch (_) {}
+}
+
+function updateProgress() {
+  const total = TASKS.length;
+  const done = TASKS.filter((t) => doneSet.has(t.id)).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById("progress-text").textContent = `${done} / ${total} kész`;
+  document.getElementById("progress-pct").textContent = `${pct}%`;
+  document.getElementById("bar-fill").style.width = pct + "%";
+  document.getElementById("bar").setAttribute("aria-valuenow", String(pct));
+}
+
+TASKS.forEach((task, index) => {
+  const topic = topicById[task.category] || { name: "Feladat", color: "#4c97ff" };
+  const isDone = doneSet.has(task.id);
+
+  const checkbox = el("input", { type: "checkbox", id: `kesz-${task.id}` });
+  checkbox.checked = isDone;
+
+  const details = el("details", { class: "task", style: `--c:${topic.color}`, id: task.id },
+    el("summary", {},
+      el("span", { class: "num", "aria-hidden": "true" }, String(index + 1)),
+      el("span", {},
+        el("span", { class: "task-cat" }, topic.name),
+        el("span", { class: "task-title" }, task.title),
+      ),
+      el("span", { class: "chev", "aria-hidden": "true" }, "▼"),
+    ),
+    el("div", { class: "task-body" },
+      el("p", {}, el("strong", {}, "Mi a cél? "), task.goal || task.summary),
+      el("h4", {}, "Lépések"),
+      el("ol", {}, ...(task.steps || []).map((s) => el("li", {}, s))),
+      task.tip ? el("div", { class: "tip" }, el("strong", {}, "Tipp: "), task.tip) : null,
+      el("div", { class: "task-actions" },
+        task.link ? el("a", {
+          class: "btn",
+          href: task.link,
+          target: "_blank",
+          rel: "noopener noreferrer",
+        }, "Megnyitás a Scratchben ↗") : null,
+        el("label", { class: "check" }, checkbox, "Kész vagyok!"),
+      ),
+    ),
+  );
+
+  if (isDone) details.classList.add("done");
+
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) doneSet.add(task.id);
+    else doneSet.delete(task.id);
+    details.classList.toggle("done", checkbox.checked);
+    saveDone();
+    updateProgress();
+  });
+
+  tasksEl.append(details);
+});
+
+updateProgress();
+</script>
+</body>
+</html>
